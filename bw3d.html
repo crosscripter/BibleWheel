@@ -1,0 +1,102 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<title>Bible Wheel 3D</title>
+        <link href="index.css" rel="stylesheet">
+		<style>
+			html, body {
+				height: 100%;
+			}
+
+			body {
+				background: url("http://jewishnews.com.ua/uploads/2015/07/08/175x115_a356f33487fcfa45fa1d1a172c721219_c.jpg");
+				background-attachment: fixed;
+				background-size: cover;
+				overflow: hidden;
+			}
+		</style>
+	</head>
+	<body>
+		<script src="three.min.js"></script>
+		<script src="tween.min.js"></script>
+		<script src="TrackballControls.js"></script>
+		<script src="CSS3DRenderer.js"></script>
+
+        <script type="text/javascript" src="raphael.min.js"></script> 
+        <script type="text/javascript" src="wheelnav.min.js"></script>
+        <script type="text/javascript" src="wheelnav.bibleWheel.js"></script>
+
+        <div id="divWheelnavBible" class="wheelNav"></div>        
+		<div id="container"></div>
+
+		<script>			
+			var camera, scene, renderer;
+			var controls;
+
+			var objects = [];
+			// var targets = { table: [], sphere: [], helix: [], grid: [] };
+
+			init();
+			animate();
+			render();
+
+			function init() {
+				var bw = new bibleWheel("divWheelnavBible")
+                bw.createWheelNav();
+
+				camera = new THREE.PerspectiveCamera( 
+					40, 
+					window.innerWidth / window.innerHeight, 
+					1, 
+					10000 
+				);
+				camera.position.z = 1200;
+
+				scene = new THREE.Scene();
+
+				// bind to bible Wheel.
+				var element = document.getElementById("divWheelnavBible");
+
+				scene.object = new THREE.CSS3DObject( element );
+				scene.add( scene.object );
+
+				var light = new THREE.PointLight( 0xffffff );
+				scene.add( light );
+
+				renderer = new THREE.CSS3DRenderer();
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				renderer.domElement.style.position = 'absolute';
+				document.getElementById( 'container' ).appendChild( renderer.domElement );
+
+				controls = new THREE.TrackballControls( camera, renderer.domElement );
+				controls.rotateSpeed = 1.5;
+				controls.minDistance = 500;
+				controls.maxDistance = 6000;
+				controls.addEventListener( 'change', render );
+
+				window.addEventListener( 'resize', onWindowResize, false );
+			}
+
+			function onWindowResize() {
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				render();
+			}
+
+			function animate() {
+				requestAnimationFrame( animate );
+				TWEEN.update();
+				controls.update();
+			}
+
+			function render() {
+				renderer.render( scene, camera );				
+			}
+
+		</script>
+	</body>
+</html>

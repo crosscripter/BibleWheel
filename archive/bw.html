@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+	<head>
+		<style>
+			.ring { display: block; position: absolute; }
+			#letters { width: 700px! important; height: 700px !important;left: 0px; top: 0px; }
+			#cycle1 { width: 300px! important; height: 300px !important; left: 200px; top: 200px; }
+			#cycle2 { width: 100px! important; height: 100px !important; left: 500px; top: 500px; }
+			#cycle3 { width: 80px! important; height: 80px !important; left: 800px; top: 800px; }
+		</style>
+	</head>
+	<body>
+		<canvas class='ring' id='letters'></canvas>
+		<canvas class='ring' id='cycle1'></canvas>
+		<canvas class='ring' id='cycle2'></canvas>
+		<canvas class='ring' id='cycle3'></canvas>		
+		<script>
+			function chart(id, cutout) {
+			  return new Chart($("#" +id), {
+			      type: 'doughnut',
+			      data: {       
+			        datasets: [{
+			          data: Array.apply(null, {length: 22}).map(Function.call, function() { return 22; }),
+			        }]
+			      },
+			      options: { cutoutPercentage: cutout }
+			  });
+			}
+
+			chart("ring1", 80);
+			chart("ring2", 50);
+			chart("ring3", 20);		
+		</script>
+	</body>	
+</html>	
+
+

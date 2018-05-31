@@ -1,0 +1,28 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Bible Wheel</title>
+        <link href="index.css" rel="stylesheet">
+
+        <script type="text/javascript" src="raphael.min.js"></script> 
+        <script type="text/javascript" src="wheelnav.min.js"></script>
+        <script type="text/javascript" src="wheelnav.bibleWheel.js"></script>
+
+        <script type="text/javascript">
+            window.onload = function () {
+                var bw = new bibleWheel("divWheelnavBible")
+				bw.clockwise = false;
+				bw.titleRotateAngle = -45;
+                bw.createWheelNav();
+            };
+
+        </script>
+    </head>
+    <body>
+        <div id="divWheelnavBible" class="wheelNav"></div>
+    </body>
+</html>
